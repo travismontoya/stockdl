@@ -9,6 +9,9 @@ module Main where
 import Network.HTTP
 import System.Environment (getArgs)
 
+-- This is currently being changed to allow the user to specify a period of time
+-- of the historical data (IE: 7/01/2016-7/20/2016), for now it downloads ALL of
+-- the data yahoo has for the specific symbol.
 requestUrl             :: [Char] -> [Char]
 requestUrl sym         = "http://chart.finance.yahoo.com/table.csv?s=" ++ sym
 
@@ -22,8 +25,8 @@ downloadData url name  = do putStrLn $ "Downloading historical data to " ++ name
 parseArgs              :: [[Char]] -> IO ()
 parseArgs []           = putStrLn "usage: stockdl <sym>"
 parseArgs (x:_)
-       | symlen <= 5 && symlen >= 1 = downloadData (requestUrl x) (x ++ ".csv")
-       | otherwise                  = putStrLn "Invalid stock symbol"
+       | symlen < 6 && symlen > 0 = downloadData (requestUrl x) (x ++ ".csv")
+       | otherwise                = putStrLn "Invalid stock symbol"
        where symlen = length x
 
 main                   :: IO ()
