@@ -8,7 +8,6 @@ module Main where
 
 import Network.HTTP
 import System.Environment (getArgs)
-import Control.Monad (liftM)
 
 requestUrl             :: [Char] -> [Char]
 requestUrl sym         = "http://chart.finance.yahoo.com/table.csv?s=" ++ sym
