@@ -17,16 +17,14 @@ getData url            = simpleHTTP (getRequest url) >>= getResponseBody
 
 downloadData           :: String -> [Char] -> IO ()
 downloadData url name  = do putStrLn $ "Downloading historical data to " ++ name
-                           (getData url) >>= writeFile name
-
+                            (getData url) >>= writeFile name
 
 parseArgs              :: [[Char]] -> IO ()
 parseArgs []           = putStrLn "usage: stockdl <sym>"
 parseArgs (x:_)
-       | length x <= 5 = downloadData (requestUrl x) (x ++ ".csv")
-       | length x > 5  = putStrLn "Invalid US stock symbol"
-       -- we should never reach this point
-       | otherwise     = putStrLn "An error occurred!"
+       | symlen <= 5 && symlen >= 1 = downloadData (requestUrl x) (x ++ ".csv")
+       | otherwise                  = putStrLn "Invalid stock symbol"
+       where symlen = length x
 
 main :: IO ()
 main                   = getArgs >>= parseArgs
