@@ -26,5 +26,5 @@ parseArgs (x:_)
        | otherwise                  = putStrLn "Invalid stock symbol"
        where symlen = length x
 
-main :: IO ()
+main                   :: IO ()
 main                   = getArgs >>= parseArgs
