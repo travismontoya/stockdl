@@ -8,6 +8,7 @@ module Main where
 
 import Network.HTTP
 import System.Environment (getArgs)
+import StockDB
 
 -- This is currently being changed to allow the user to specify a period of time
 -- of the historical data (IE: 7/01/2016-7/20/2016), for now it downloads ALL of
